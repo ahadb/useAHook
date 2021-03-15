@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# useFetch
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is an example of how to use the fetch API as a generic hook.
 
-## Available Scripts
+## The Hook
 
-In the project directory, you can run:
+* This only exposes the hook as an example, there is no build nor NPM package (gosh knows we need another one!)
+  * This way you can build on top of it
+* Internally in the hook we use: `useState`, `useEffect` and `useReducer`
+* Props you'll need to destructure are simply: 
+  * { status, data }
+* Hook supports:
+  * Options for params
+  * Cache
+  * Memoization using refs  
 
-### `yarn start`
+## Example
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```javascript
+import React from "react"
+import './App.css';
+import {useFetch} from "./useFetch";
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+function App() {
 
-### `yarn test`
+  const url = `https://swapi.dev/api/people/`
+  const headers = new Headers();
+  const options = {
+    method: 'GET', // GET | POST | PUT etc
+    headers,
+    mode: 'cors',
+    cache: 'default',
+    // body
+  }
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  const { status, data } = useFetch(url, options);
 
-### `yarn build`
+  const getData = () => {
+    if (status === 'fetching') {
+      return (
+          <p>Fetching</p>
+      )
+    }
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    if (status === 'fetched') {
+      return (
+          <div>
+            {data.results.map((x, i) => (
+                <div key={i}>{x.name}</div>
+            ))}
+          </div>
+      )
+    }
+    if (status === "error") {
+      return (
+          <p>Some error occurred</p>
+      )
+    }
+  };
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  return (
+    <div>
+      Star Wars Characters:
+      {getData()}
+    </div>
+  );
+}
 
-### `yarn eject`
+export default App;
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## How You Could Extend This Hook
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Add GraphQL support, `query`, `mutate`
+* Add TypeScript
+* Set default url
+* Destructure `fetching`, `isFetching`
+* Easily add more features: `abort`, `refetch`
