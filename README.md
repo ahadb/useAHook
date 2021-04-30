@@ -1,11 +1,18 @@
 # useFetch
 
-This project is an example of how to use the fetch API as a generic hook.
+This project has examples of React hooks that i feel could be useful. It is a work in progress project for fun - all
+the hooks will work well fundamentally and you can build upon them.
 
-## The Hook
+## The Hooks
 
-* This only exposes the hook as an example, there is no build nor NPM package (gosh knows we need another one!)
-  * This way you can build on top of it
+You can find the hooks in the src/ folder. Thus far we have:
+
+* useFetch
+* useLocalStorage
+
+
+## useFetch Example Usage
+
 * Internally in the hook we use: `useState`, `useEffect` and `useReducer`
 * Props you'll need to destructure are simply: 
   * { status, data }
@@ -14,19 +21,17 @@ This project is an example of how to use the fetch API as a generic hook.
   * Cache
   * Memoization using refs  
 
-## Example
-
 ```javascript
-import React from "react"
-import './App.css';
-import {useFetch} from "./useFetch";
+import React from 'react';
+import { useFetch } from './useFetch';
 
-function App() {
+export function UseFetchExample() {
 
   const url = `https://swapi.dev/api/people/`
   const headers = new Headers();
+
   const options = {
-    method: 'GET', // GET | POST | PUT etc
+    method: 'GET',
     headers,
     mode: 'cors',
     cache: 'default',
@@ -60,20 +65,40 @@ function App() {
 
 
   return (
-    <div>
-      Star Wars Characters:
-      {getData()}
-    </div>
+      <div>
+        Star Wars Characters:
+        {getData()}
+      </div>
   );
 }
-
-export default App;
 ```
 
-## How You Could Extend This Hook
+## useLocalStorage Example Usage
 
-* Add GraphQL support, `query`, `mutate`
-* Add TypeScript
-* Set default url
-* Destructure `fetching`, `isFetching`
-* Easily add more features: `abort`, `refetch`
+* Internally in the hook we use: `useState`
+* Hook supports and returns:
+  * value
+  * setValue
+  
+Both destructured in the below example:
+
+
+```javascript
+import React from 'react';
+import { useLocalStorage } from './useLocalStorage';
+
+export function UseLocalStorageExample() {
+  const [animal, setAnimal] = useLocalStorage("animal", "Baboon");
+
+  return (
+      <div>
+        <input
+            type="text"
+            placeholder="Enter an animal"
+            value={animal}
+            onChange={(e) => setAnimal(e.target.value)}
+        />
+      </div>
+  );
+}
+```
