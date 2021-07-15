@@ -9,6 +9,7 @@ You can find the hooks in the src/ folder. Thus far we have:
 
 * useFetch
 * useLocalStorage
+* usePrevious
 
 
 ## useFetch Example Usage
