@@ -9,6 +9,10 @@ function parseData(pasteInput) {
 }
 
 
+/*
+ * React hook to paste rows into div container
+ */
+
 export default function usePaste(handler) {
   const handlerRef = useRef(handler)
 
@@ -17,7 +21,7 @@ export default function usePaste(handler) {
   }, [handler])
 
   useEffect(() => {
-    function handlePaste(pasteData) {
+    function handlePaste(pastedData) {
       const rows = parseData(pastedData);
 
       if(rows.length) {
