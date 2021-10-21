@@ -1,7 +1,7 @@
 # useFetch
 
-This project has examples of React hooks that i feel could be useful. It is a work in progress project for fun - all
-the hooks will work well fundamentally and you can build upon them.
+This project has examples of React hooks that i feel could be useful. A small fun project in spare time - all 
+hooks will work well fundamentally and you can build upon them.
 
 ## The Hooks
 
@@ -10,6 +10,9 @@ You can find the hooks in the src/ folder. Thus far we have:
 * useFetch
 * useLocalStorage
 * usePrevious
+* usePaste
+* useKeyDown
+* useKeyUp
 
 
 ## useFetch Example Usage
