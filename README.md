@@ -1,7 +1,10 @@
 # useFetch
 
-This project has examples of React hooks that i feel could be useful. A small fun project in spare time - all 
-hooks will work well fundamentally and you can build upon them.
+This project has examples of React hooks that I feel could be useful. This is a small fun project in my spare time - all 
+hooks will work well fundamentally and you can build upon them. 
+
+Create React App is used a baseline to run the hooks, nothing more - this does not expose hooks for others to consume. Where
+is the fun in that, people love writing them! 
 
 ## The Hooks
 
