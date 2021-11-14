@@ -7,7 +7,7 @@ export const useFetch = (url, options) => {
   const initialState = {
     status: 'idle',
     error: null,
-    data: []
+    data: [],
   }
 
   const [state, dispatch] = useReducer((state, action) => {
@@ -38,7 +38,7 @@ export const useFetch = (url, options) => {
         dispatch({ type: 'FETCHED', payload: data })
       } else {
         try {
-          const response = await fetch(url, {...fetchOptions})
+          const response = await fetch(url, { ...fetchOptions })
           const data = await response.json()
           cache.current[url] = data
 
